@@ -23,5 +23,5 @@ double findNthRootOfM(int n, long long m) {
         else
             low=mid;
     }
-    return mid;
+    return low;
 }
