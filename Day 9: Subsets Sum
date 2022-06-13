@@ -1,0 +1,24 @@
+class Solution
+{
+public:
+    void func(int sum,int index,vector<int>&arr,vector<int>&subsets,int N)
+    {
+        if(index==N)
+        {
+            subsets.push_back(sum);
+            return;
+        }
+        func(sum+arr[index],index+1,arr,subsets,N);
+        func(sum,index+1,arr,subsets,N);
+    }
+    vector<int> subsetSums(vector<int> arr, int N)
+    {
+        // Write Your Code here
+        int sum=0;
+        int index=0;
+        vector<int>subsets;
+        func(sum,index,arr,subsets,N);
+        sort(subsets.begin(),subsets.end());
+        return subsets;
+    }
+};
