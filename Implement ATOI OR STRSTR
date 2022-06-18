@@ -1,0 +1,49 @@
+class Solution {
+public:
+    int myAtoi(string s) {
+        int n =s.size();
+        
+        if(n==0) return 0;
+        long long int ans=0;
+        
+        if(s[0]==' ')
+        {
+            int i=0;
+            while(i<n&&s[i]==' ')
+            {
+                i++;
+            }
+            s=s.substr(i);
+        }
+        int i=0;
+        int sign=1; //+ve sign
+            
+        n=s.size();
+        if(n==0) return 0;
+        
+        if(s[0]=='-') sign=-1; //-ve sign
+        i=((s[0]=='+')||(s[0]=='-'))?1:0;
+ 
+        
+        int max=INT_MAX;
+        int min=INT_MIN;
+        
+        while(i<s.length())
+        {
+            if(((s[i]-'0')>=0)&&((s[i]-'0')<=9))
+                ans=ans*10+(s[i]-'0');
+            else
+                break;
+            
+            if(sign==1&&ans*sign>max) return max;
+            if(sign==-1&&ans*sign<min) return min;
+            i++;
+        }
+        if (ans==0)
+            return 0;
+        
+   
+        return (int)(sign*ans);
+        
+    }
+};
