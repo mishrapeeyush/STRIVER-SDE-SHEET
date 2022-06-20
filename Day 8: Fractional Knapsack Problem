@@ -1,0 +1,45 @@
+class Solution
+{
+    public:
+    //Function to get the maximum total value in the knapsack.
+    double fractionalKnapsack(int W, Item arr[], int n)
+    {
+        // Your code here
+        vector<pair<double,int>>v;
+        
+        for(int i=0;i<n;i++)
+        {
+            double val=arr[i].value;
+            double wt=arr[i].weight;
+            double VbyW=val/wt;
+            
+            v.push_back({VbyW,i});
+        }
+        
+        sort(v.begin(),v.end());
+        reverse(v.begin(),v.end());
+        
+        double ans=0;
+        int i=0;
+        
+        while(i<n&&W>0)
+        {
+            if(W>=(arr[v[i].second].weight))
+            {
+                W=W-(arr[v[i].second].weight);
+                ans=ans+(double)arr[v[i].second].value;
+            }
+            
+            else
+            {
+                ans+=(v[i].first)*W;
+                W=0;
+                break;
+            }
+            i++;
+        }
+        
+        return ans;
+    }
+        
+};
