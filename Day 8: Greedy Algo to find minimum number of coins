@@ -1,0 +1,33 @@
+class Solution{
+
+	public:
+	int minCoins(int coins[], int M, int V)  //This solution is only for Greedy Approach Questions where the currency is real world types. ie 1,5,10,20,50.. and not 1,5,6,9... the problem with the latter is it will give different value in dp and different in greedy. 5+6=11>9 hence greedy is not applicable
+	{ 
+	    // Your code goes here
+	    sort(coins,coins+M);
+	    
+	    int count=0;
+	    for(int i=M-1;i>=0;i--)
+	    {
+	        if(coins[i]>V)
+	        {
+	            continue;
+	        }
+	        
+	        else if(coins[i]==V)
+	        {
+	            count++;
+	            break;
+	        }
+	        
+	        else
+	        {
+	            V=V-coins[i];
+	            count++;
+	            i++;  //to take care of cases such as 29=20+5+2+2. Two 2s
+	        }
+	    }
+	    return count;
+	} 
+	  
+};
