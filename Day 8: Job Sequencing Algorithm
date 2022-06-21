@@ -1,0 +1,59 @@
+class Solution 
+{
+    public:
+    //Function to find the maximum profit and the number of jobs done.
+     bool static comparision(Job a, Job b)
+    {
+        return(a.profit>b.profit);
+    }
+    
+    
+    vector<int> JobScheduling(Job arr[], int n) 
+    { 
+        // your code here
+        sort(arr,arr+n,comparision);
+        int maxi=0;              //maxi=no of tasks that can be done
+        
+        for(int i=0;i<n;i++)
+        {
+            if(maxi<arr[i].dead)    
+            maxi=arr[i].dead;
+        }
+        
+        int ans[maxi];  //array to store index and keep track of unfilled slots
+        int res=0;     //stores total profit
+        
+        for(int i=0;i<maxi;i++)
+            ans[i]=-1;
+        
+        int counter=0;  //stores the no of entries
+        int i=0;
+        while(i<n)
+        {
+            int j=(arr[i].dead)-1;
+            
+            while(j>=0)
+            {
+                if(ans[j]==-1)
+                    break;
+                j--;
+            }
+            
+            if(j<0)
+            {
+                i++;
+
+            }
+            else
+            {
+                ans[j]=arr[i].id;
+                res+= arr[i].profit;
+                counter++;
+                i++;
+            }
+        }
+        return {counter,res};
+        
+        
+    } 
+};
