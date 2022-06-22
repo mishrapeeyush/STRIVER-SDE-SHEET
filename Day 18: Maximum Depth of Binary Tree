@@ -1,0 +1,11 @@
+class Solution {
+public:
+    int maxDepth(TreeNode* root) {         //Apply IBH theorem of Recursion
+     if(!root) return 0;
+        
+        int lh=maxDepth(root->left);
+        int rh=maxDepth(root->right);
+        
+        return 1+max(lh,rh);
+    }
+};
