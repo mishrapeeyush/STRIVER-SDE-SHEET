@@ -1,0 +1,56 @@
+//Approach 1
+
+class Solution {
+public:
+    
+    void mirror(struct TreeNode* &p)
+    {
+        if(!p) return;
+        
+        mirror(p->left);
+        mirror(p->right);
+        
+        TreeNode* temp=p->left;
+        p->left=p->right;
+        p->right=temp; 
+    }
+        
+    bool check(TreeNode* p, TreeNode* q)
+    {
+        if(p==NULL||q==NULL) return (p==q);
+        
+        return ((p->val==q->val)&&check(p->left,q->left)&&check(p->right,q->right));
+    }
+    
+    bool isSymmetric(TreeNode* root) {
+        if(!root) return true;
+        
+        mirror(root->left);
+        
+        bool ans=check(root->left,root->right);
+        
+        return ans;
+    }
+};
+
+
+
+//Aprroach 2
+class Solution {
+public:
+      bool check(TreeNode* p, TreeNode* q)
+    {
+        if(p==NULL or q==NULL) 
+            return (p==q);
+        
+        return ((p->val==q->val)&&check(p->left,q->right)&& check(p->right,q->left));
+    }
+    
+    bool isSymmetric(TreeNode* root) {
+        if(root==NULL) 
+            return true;
+        
+        return check(root->left,root->right);
+    
+    }
+};
