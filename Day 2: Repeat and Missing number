@@ -1,0 +1,60 @@
+vector<int> Solution::repeatedNumber(const vector<int> &A) {
+    
+    int xor1=A[0];
+    for(int i=1;i<A.size();i++)
+    {
+        xor1=xor1^A[i];    //Getting the xor of all the elements in the array A
+    }
+    
+    int maxi=A.size();   //maxi=A[A.size()-1] and mini=1
+    int mini=1;
+    
+    for(int i=mini;i<=maxi;i++)
+    {
+        xor1=xor1^i;    //taking out xor of all elements from 1 to n with xor1
+    }
+    
+    int i=xor1&~(xor1-1);
+    // for(i=0;i<32;i++)
+    // {
+    //     if(xor1&(1>>i))
+    //     break;
+    // }
+    
+    int temp1=0,temp2=0;
+    for(int j=0;j<A.size();j++)
+    {
+        if((i)&A[j])
+        temp1=temp1^A[j];
+        
+        else
+        temp2=temp2^A[j];
+    }
+    
+    for(int j=mini;j<=maxi;j++)
+    {
+        if((i)&j)
+        temp1=temp1^j;
+        
+        else
+        temp2=temp2^j;
+    }
+    
+    vector<int>v;
+    
+    for(int j=0;j<A.size();j++)
+    {
+        if(A[j]==temp1)
+        {
+            v.push_back(temp1);
+            v.push_back(temp2);
+        }
+        
+        else if(A[j]==temp2)
+        {
+            v.push_back(temp2);
+            v.push_back(temp1);
+        }
+    }
+    return v;
+}
