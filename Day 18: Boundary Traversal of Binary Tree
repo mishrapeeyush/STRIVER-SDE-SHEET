@@ -1,0 +1,68 @@
+class Solution {
+public:
+
+    bool isLeaf(Node* root)
+    {
+      return !root -> left && !root -> right;
+    }
+
+    void leftOrder(vector<int>&v, Node* root)
+    {
+        Node* node=root->left;
+        
+        while(node&&!(isLeaf(node)))
+        {
+            v.push_back(node->data);
+            if(node->left)
+            node=node->left;
+            else
+            node=node->right;
+        }
+    }
+    
+        void rightOrder(vector<int>&v, Node* root)
+    {
+        Node* node=root->right;
+        vector<int>temp;
+        
+        while(node&&(!isLeaf(node)))
+        {
+            temp.push_back(node->data);
+            if(node->right)
+            node=node->right;
+            else
+            node=node->left;
+        }
+        
+        for(int i=temp.size()-1;i>=0;i--)
+            v.push_back(temp[i]);
+    }
+    
+    void leafOrder(vector<int>&v,Node* root)
+    {
+        if(isLeaf(root))
+            {
+                v.push_back(root->data);
+                return;
+            }
+            
+           if(root->left) leafOrder(v,root->left);
+           if(root->right) leafOrder(v,root->right);
+    }
+    
+    vector <int> boundary(Node *root)
+    {
+        //Your code here
+        vector<int>v;
+        
+        if(!root) return v;
+        
+        if(!isLeaf(root)) v.push_back(root->data);
+        
+        leftOrder(v,root);
+        leafOrder(v,root);
+        rightOrder(v,root);
+        
+        return v;
+    }
+};
