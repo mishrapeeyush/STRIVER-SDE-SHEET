@@ -1,0 +1,33 @@
+class Solution {
+public:
+    TreeNode* func(TreeNode* root)
+    {
+                TreeNode* head=new TreeNode(-1);
+        stack<TreeNode*>st;
+        
+        TreeNode* ptr=head;
+        
+        if(!root) return NULL;
+        
+        st.push(root);
+        
+        while(st.size())
+        {
+            TreeNode *node=st.top();
+            st.pop();
+            
+            if(node->right) st.push(node->right);
+            if(node->left) st.push(node->left);
+            
+            ptr->right=node;
+            ptr->left=NULL;
+            ptr=ptr->right;
+        }
+        
+        return head->right;
+    }
+    
+    void flatten(TreeNode* root) {
+        TreeNode* ptr=func(root);
+    }
+};
