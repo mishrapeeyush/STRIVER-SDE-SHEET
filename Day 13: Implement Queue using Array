@@ -1,0 +1,45 @@
+class Queue {
+public:
+    vector<int>q;
+           int i=0;
+    Queue() {
+        // Implement the Constructor
+ 
+    }
+
+    /*----------------- Public Functions of Queue -----------------*/
+
+    bool isEmpty() {
+        // Implement the isEmpty() function
+        if(q.empty())
+            return true;
+        else
+            return false;
+    }
+
+    void enqueue(int data) {
+        // Implement the enqueue() function
+        q.push_back(data);
+        i++;
+    }
+
+    int dequeue() {
+        // Implement the dequeue() function
+        if(!q.empty())
+        {
+            int dequeue=q[0];
+            q.erase(q.begin()+0);
+            return dequeue;
+        }
+        else
+            return -1;
+        
+    }
+
+    int front() {
+        // Implement the front() function
+        if(q.empty())
+            return -1;
+        return q[0];
+    }
+};
