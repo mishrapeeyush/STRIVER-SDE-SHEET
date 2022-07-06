@@ -1,0 +1,104 @@
+//Implement Queue requiring 2 Stacks. o(N) for push and pop() and peek() operations. This is brute force method.
+
+class MyQueue {
+public:
+    stack<int>st1;
+    stack<int>st2;
+    
+    MyQueue() {
+        
+    }
+    
+    void push(int x) {
+        while(!st1.empty())
+        {
+            st2.push(st1.top());
+            st1.pop();
+        }
+        
+        st2.push(x);
+        
+        while(!st2.empty())
+        {
+            st1.push(st2.top());
+            st2.pop();
+        }
+    }
+    
+    int pop() {
+        int x=st1.top();
+        st1.pop();
+        return x;
+    }
+    
+    int peek() {
+        int x=st1.top();
+        return x;
+    }
+    
+    bool empty() {
+        if(st1.empty())
+            return true;
+        return false;
+    }
+};
+
+
+
+
+
+
+
+
+
+
+//Implementing queue using 2 stacks. The time complexity for push() is o(1) and for pop() and peek() methods is o(1) amortized. This is optimal solution. Amortized o(1) means that overall the function will take o(1) time on average. there may be a o(N) complexity too but on average it will give o(1). 
+//o(1)+o(1)+o(1)+o(N)+o(1)+o(1)/N =o(1) ammortized
+
+class MyQueue {
+public:
+    stack<int>input;
+    stack<int>output;
+    
+    MyQueue() {
+        
+    }
+    
+    void push(int x) {
+        input.push(x);
+    }
+    
+    int pop() {
+        if(output.empty())
+        {
+            while(!input.empty())
+            {
+                output.push(input.top());
+                input.pop();
+            }
+        }
+        
+        int x=output.top();
+        output.pop();
+        return x;
+    }
+    
+    int peek() {
+        if(output.empty())
+        {
+            while(!input.empty())
+            {
+                output.push(input.top());
+                input.pop();
+            }
+        }
+        return output.top();
+    }
+    
+    bool empty() {
+        if(output.empty()&&input.empty())
+            return true;
+        return false;
+    }
+};
+
