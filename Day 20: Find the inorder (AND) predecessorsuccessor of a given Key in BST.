@@ -1,3 +1,9 @@
+Method 1: Write inorder traversal for BST and as it is sorted. it will be easier to find predecessor and successor. O(N),O(N)
+
+Method 2: Do inorder traversal and store the value before and after key. O(N),O(1)
+
+//Most Optimsed Method is BST iterative traversal just like for ceil and floor of BST. O(h) and O(1).
+
 void predecessor(Node* node,Node *&pre,int key)
 {
     while(node)
