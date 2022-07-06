@@ -1,0 +1,60 @@
+void predecessor(Node* node,Node *&pre,int key)
+{
+    while(node)
+    {
+        if(node->key<key)
+        {
+            if(!pre)
+            pre=node;
+            
+            else
+            {
+                if(pre->key<node->key)
+                pre=node;
+            }
+            
+            node=node->right;
+        }
+        
+        else if(node->key>=key)
+        node=node->left;
+    }
+}
+
+void successor(Node* node,Node *&suc,int key)
+{
+    suc=NULL;
+    
+    while(node)
+    {
+        if(key<node->key)
+        {
+            if(!suc)
+            {
+                suc=node;
+            }
+            else
+            {
+                if(suc->key>node->key)
+                {
+                    suc=node;
+                }
+            }
+             node=node->left;
+        }
+        
+        else if(key>=node->key)
+        {
+            node=node->right;
+        }
+    }
+}
+
+void findPreSuc(Node* root, Node*& pre, Node*& suc, int key)
+{
+    
+ predecessor(root,pre,key);
+ successor(root,suc,key);
+// Your code goes here
+
+}
