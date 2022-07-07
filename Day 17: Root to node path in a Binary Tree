@@ -1,0 +1,22 @@
+bool getPath(TreeNode* root,int num,vector<int>&v)
+{    
+    if(!root) return false;
+    v.push_back(root->val);
+    
+    if(root->val==num)
+    return true;
+    
+    if(getPath(root->left,num,v)||getPath(root->right,num,v))
+    return true;
+    
+    else
+    v.pop_back();
+    return false;
+}
+
+vector<int> Solution::solve(TreeNode* A, int B) {
+    
+    vector<int>v;
+    getPath(A,B,v);
+    return v;
+}
