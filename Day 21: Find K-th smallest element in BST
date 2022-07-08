@@ -1,0 +1,52 @@
+class Solution {
+public:
+    int kthSmallest(TreeNode* curr, int k) {
+       int counter=0;
+       int res=0;
+        
+        if(curr==NULL)
+	       return 0;
+        
+        while(curr)
+        {
+            if(curr->left==NULL)
+            {
+                counter++;
+                
+                if(counter==k)
+                    res=curr->val;
+                
+                curr=curr->right;
+                
+            }
+            else
+            {
+                TreeNode *prev=curr->left;
+                while(prev->right&&prev->right!=curr)
+                {
+                    prev=prev->right;
+                }
+                
+                if(prev->right==NULL)
+                {
+                    prev->right=curr;
+                    curr=curr->left;
+                }
+                
+                else 
+                {
+                    prev->right=NULL;
+                    
+                    counter++;
+                    
+                    if(counter==k)
+                        res=curr->val;
+                    
+                    curr=curr->right;
+                }
+            }
+        }
+        
+        return res;
+    }
+};
