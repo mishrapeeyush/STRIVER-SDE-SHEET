@@ -1,0 +1,43 @@
+ Node *merge2Lists(Node *&node1, Node *&node2)
+    {
+        Node* temp=new Node(-1);
+        Node *curr=temp;
+        
+        while(node1&&node2)
+        {
+            if(node1->data>node2->data)
+            {
+                temp->bottom=node2;
+                temp=temp->bottom;
+                node2=node2->bottom;
+            }
+            else
+            {
+                temp->bottom=node1;
+                temp=temp->bottom;
+                node1=node1->bottom;
+            }
+        }
+        
+        if(node1)
+        {
+            temp->bottom=node1;
+        }
+        else if(node2)
+        temp->bottom=node2;
+        
+        return curr->bottom;
+    }
+    
+    
+Node *flatten(Node *root)
+{
+   // Your code here
+   if(!root||!root->next)
+   return root;
+   
+   root->next=flatten(root->next);
+   root=merge2Lists(root,root->next);
+   
+   return root;
+}
