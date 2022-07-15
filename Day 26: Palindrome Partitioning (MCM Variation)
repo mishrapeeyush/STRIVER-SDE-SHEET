@@ -1,0 +1,59 @@
+class Solution{
+public:
+    int dp[501][501];
+
+    bool isPalindrome(int i,int j,string str)
+    {
+        if(str.size()==0||str.size()==1)
+            return true;
+        
+        while(i<=j)
+        {
+            if(str[i]!=str[j])
+                return false;
+             
+            i++;
+            j--;
+        }
+        
+        return true;
+    }
+    
+    int solve(int i,int j,string str)
+    {
+        if(i>j) return 0;
+        if(dp[i][j]!=-1) return dp[i][j];
+        
+        if(isPalindrome(i,j,str)==true)
+        return 0;
+        
+        int mn=INT_MAX;
+        
+        for(int k=i;k<j;k++)
+        {
+            int left, right;
+            
+            if(dp[i][k]!=-1)          //int temp=solve(i,k,str)+solve(k+1,j,str)+1
+                left=dp[i][k];        // This will also work but we are checking if the subproblem is reapeating, if it is we will directly take that value from dp array
+            else                      //This is reducing complexity;
+                left=solve(i,k,str);
+                
+            if(dp[k+1][j]!=-1)
+                right=dp[k+1][j];
+            else
+                right=solve(k+1,j,str);
+                
+            int temp=left+right+1;
+            
+            mn=min(mn,temp);
+        }
+        return dp[i][j]=mn;
+    }
+    
+    int palindromicPartition(string str)
+    {
+        // code here
+        memset(dp,-1,sizeof(dp));
+        return solve(0,str.size()-1,str);
+    }
+};
